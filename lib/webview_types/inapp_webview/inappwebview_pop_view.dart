@@ -1,0 +1,146 @@
+import 'package:audio_webview/app_config.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+
+import '../../api/native_sharing.dart';
+import '../../application/files_downloader.dart';
+import 'inapp_webview_config.dart';
+
+class InappwebviewPopView extends StatefulWidget {
+  int? windowId;
+  Uri? uri;
+  bool showAppBar;
+
+
+  InappwebviewPopView({
+    Key? key,
+    this.windowId,
+    this.uri,
+    this.showAppBar = false,
+  }) : super(key: key);
+
+  @override
+  _InappwebviewPopViewState createState() => _InappwebviewPopViewState();
+}
+
+class _InappwebviewPopViewState extends State<InappwebviewPopView> {
+  InAppWebViewController? _webViewController;
+  late double progress;
+  InappWebviewConfig _config = InappWebviewConfig();
+  bool isLoading = false;
+  String url ="";
+  @override
+  void initState() {
+    setState(() {
+      progress = 0;
+      isLoading = false;
+    });
+    super.initState();
+
+
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (progress < 1.0) {
+      setState(() {
+        isLoading = true;
+      });
+    } else {
+      setState(() {
+        isLoading = false;
+      });
+    }
+    // }else {
+    return WillPopScope(
+      onWillPop: () async {
+        bool _canBack = false;
+        await _webViewController!.canGoBack().then((value) => _canBack =value);
+        if(_canBack){
+          _webViewController!.goBack();
+          return false;
+        }else{
+          return true;
+        }
+
+      },
+      child: SafeArea(
+        child: Scaffold(
+          appBar: (widget.showAppBar)
+              ? AppBar(
+            actions: [NativeSharing().shareButton(url:url)],
+                  backgroundColor: mainAppColor,
+                  iconTheme: IconThemeData(color: Colors.white),
+                )
+              : PreferredSize(
+                  preferredSize: Size.zero,
+                  child: SizedBox(),
+                ),
+          body: Column(
+            children: [
+              Container(
+                  child: progress < 1.0
+                      ? LinearProgressIndicator(value: progress)
+                      : Container()),
+              Expanded(
+                child: Stack(
+                  children: [
+                    InAppWebView(
+                      windowId: widget.windowId,
+                      initialUrlRequest: URLRequest(
+                        url: widget.uri,
+                      ),
+                      initialOptions: InAppWebViewGroupOptions(
+                        android:  _config.androidOptions,
+                        ios: _config.IOSOptions,
+                        crossPlatform: _config.crossPlatform,
+                      ),
+                      onWebViewCreated: (InAppWebViewController controller) {
+                         controller.getUrl().then((urli) {
+                           setState(() {
+                             url = urli.toString();
+                           });
+                         });
+                        _webViewController = controller;
+
+
+                      },
+                      onLoadStart: (InAppWebViewController controller, url) {
+
+                      },
+                      onLoadStop: (InAppWebViewController controller, url) {
+
+                      },
+                      onProgressChanged: (InAppWebViewController controller, int p) {
+                        print("progress    ${progress / 100}");
+                        setState(() {
+                          progress = p / 100;
+                        });
+
+                      },
+
+                      shouldOverrideUrlLoading:(controller, action) async =>  _config.shouldOverrideUrlLoading(controller, action) ,
+
+                      onCreateWindow: (controller, action){
+
+                        return _config.onCreateWindow(context, controller, action);
+                      },
+                      onDownloadStart:(controller, uri){
+                        print("onDownloadStart");
+                        _config.onDownload(controller, uri);
+
+                      } ,
+
+                    ),
+
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+// }

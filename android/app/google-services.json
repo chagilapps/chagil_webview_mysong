@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "645557053341",
+    "project_id": "audio-webview",
+    "storage_bucket": "audio-webview.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:645557053341:android:560a2df24bb0b5ed853174",
+        "android_client_info": {
+          "package_name": "com.chagil.audio_webview"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "645557053341-qge6159dskntpugdl5dda9djbu1rg5gm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA5SEU-hlsyYKU_9nVDiix-8fuuzEpKg6Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "645557053341-qge6159dskntpugdl5dda9djbu1rg5gm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
