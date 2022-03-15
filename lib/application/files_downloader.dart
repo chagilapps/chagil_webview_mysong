@@ -1,12 +1,14 @@
 import 'dart:io';
 import 'package:al_downloader/al_downloader.dart';
 import 'package:android_path_provider/android_path_provider.dart';
-import 'package:audio_webview/application/links_navigation.dart';
+
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
+
+import 'links_navigation.dart';
 
 class FileDownloader {
   // TargetPlatform platform;

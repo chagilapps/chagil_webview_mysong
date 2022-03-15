@@ -1,11 +1,13 @@
-import 'package:audio_webview/webview_types/inapp_webview/flutter_inappwebview_main_view.dart';
-import 'package:audio_webview/webview_types/flutter_webview_plugin_widget.dart';
+
 import 'package:flutter/material.dart';
+
+import 'webview_types/flutter_webview_plugin_widget.dart';
+import 'webview_types/inapp_webview/flutter_inappwebview_main_view.dart';
 
 //webview Package
 List<Widget> appWebView = [
  const FlutterInappWebviewMainView(),
-FlutterWebviewPluginWidget(),
+// FlutterWebviewPluginWidget(),
 // FlutterWebviewProWidget(),
 ];
 

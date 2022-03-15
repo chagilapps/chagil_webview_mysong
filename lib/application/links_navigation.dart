@@ -48,14 +48,15 @@ class LinksNavigation {
             await launch(_url, forceSafariVC: true);
           }
         }
+      }
       } else {
-        if (await canLaunch(url)) {
-          await launch(url);
+        if (await canLaunch(_url)) {
+          await launch(_url);
         } else {
           throw 'Could not launch $url';
         }
       }
-    }
+
   }
   
   //launcher
@@ -95,14 +96,14 @@ class LinksNavigation {
       }
     }
 
-    //do not load - because already strated load, it will go back or reload the current page
-    void _doNotLoad(InAppWebViewController controller) {
-      controller.goBack();
-    }
-
-    void _loadUrlInApp(ctr, url) {
-      ctr!.loadUrl(urlRequest: URLRequest(url: url));
-    }
+    // //do not load - because already strated load, it will go back or reload the current page
+    // void _doNotLoad(InAppWebViewController controller) {
+    //   controller.goBack();
+    // }
+    //
+    // void _loadUrlInApp(ctr, url) {
+    //   ctr!.loadUrl(urlRequest: URLRequest(url: url));
+    // }
 
 //on loading page methoscheck url if to launch in different method
     int linksHandler({required Uri uri}) {
@@ -152,12 +153,12 @@ class LinksNavigation {
       return 0;
     }
 
-    void loadUrlInExtrenal({required Uri uri}) {
-      if (!uri.scheme.startsWith("http")) {
-        _launchURL(uri.toString());
-        _doNotLoad(controller!);
-      }
-    }
+    // void loadUrlInExtrenal({required Uri uri}) {
+    //   if (!uri.scheme.startsWith("http")) {
+    //     _launchURL(uri.toString());
+    //     _doNotLoad(controller!);
+    //   }
+    // }
 
 
     onCreateWindow(context, controller, action) {

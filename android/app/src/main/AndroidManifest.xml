@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.chagil.audio_webview">
+    package="com.chagil.my_song">
     <queries>
         <!-- If your app opens https URLs -->
         <intent>
@@ -26,7 +26,7 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
    <application
-        android:label="audio_webview"
+        android:label="MYSONG | מייסונג"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         android:usesCleartextTraffic="true"
