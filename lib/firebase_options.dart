@@ -41,20 +41,20 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyA5SEU-hlsyYKU_9nVDiix-8fuuzEpKg6Q',
-    appId: '1:645557053341:android:66cca00e71af35d9853174',
-    messagingSenderId: '645557053341',
-    projectId: 'audio-webview',
-    storageBucket: 'audio-webview.appspot.com',
+    apiKey: 'AIzaSyAVExgX-DrWh5wy6fj4gXWnbA0NOZ2DyYg',
+    appId: '1:753447301555:android:5663da2eccfc1433861bc6',
+    messagingSenderId: '753447301555',
+    projectId: 'my-song-22d08',
+    storageBucket: 'my-song-22d08.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyD9_SeQ1Z-8zyrYYhDjIxUDEDRd-Boiblk',
-    appId: '1:645557053341:ios:a06fc43e04608151853174',
-    messagingSenderId: '645557053341',
-    projectId: 'audio-webview',
-    storageBucket: 'audio-webview.appspot.com',
-    iosClientId: '645557053341-s72thhuhgpd5it5g4e72aot7p2rkl7c0.apps.googleusercontent.com',
-    iosBundleId: 'com.chagil.webview',
+    apiKey: 'AIzaSyA7RjPKEbT57GQRJD9mPBnokx72nGHxuZw',
+    appId: '1:753447301555:ios:df6e0d8c015479a3861bc6',
+    messagingSenderId: '753447301555',
+    projectId: 'my-song-22d08',
+    storageBucket: 'my-song-22d08.appspot.com',
+    iosClientId: '753447301555-k3efjuqi8j6jfmn37mm0sp8neg8nq2hn.apps.googleusercontent.com',
+    iosBundleId: 'com.chagil.mysongapp',
   );
 }

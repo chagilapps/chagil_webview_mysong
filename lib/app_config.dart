@@ -12,9 +12,7 @@ List<Widget> appWebView = [
 ];
 
 
-// settings
-bool audioBackground = false;
-bool showAppBar = true;
+
 //website
 // String appUrl = "https://www.mysong.co.il/";
 // String appUrl = "https://west-wind.com/wconnect/wcscripts/fileupload.wwd";
@@ -24,24 +22,19 @@ Uri appUri =  Uri(
   host: 'www.mysong.co.il',
   path: '',
 );
-// Uri appUri =  Uri(
-//   scheme: 'https',
-//   host: 'west-wind.com',
-//   path: 'wconnect/wcscripts/fileupload.wwd',
-// );
-//developer.mozilla.org/en-US/docs/Web/API/Navigator/share
-// Uri appUri =  Uri(
-//   scheme: 'https',
-//   host: 'developer.mozilla.org',
-//   path: 'en-US/docs/Web/API/Navigator/share',
-// );
+
 
 //appbar
-String appBarTitle = "My Song App";
+String appBarTitle =  "";
 Color mainAppColor = Colors.black;
 
-//open links settings: 
+
+// settings
+bool audioBackground = false;
+bool showAppBar = false;
 bool newTabShowAppBar = true;
+
+//open links settings:
 bool openExternalLinksInBrowser = false;
 bool excludeHostList = true;
 bool excludePathList = true;
@@ -54,8 +47,8 @@ bool openSpecifichostsInLauncher = true;
 List<String> hostStartWith = ["api","wa"];
 List<String> pathContain = ["download"];
 List<String> specificHostInTab = ["download",];
-List<String> specificHostInBrowser = ["www.facebook.com","www.youtube.com"];
+List<String> specificHostInBrowser = ["www.facebook.com","www.youtube.com","www.instegram.com"];
 
 
-const String oneSignalAndroid = "ed43dc76-674a-485d-b2d0-022cc85ff004";
-const String oneSignalIOS = "";
+const String oneSignalAndroid = "032d972e-3b84-42d0-9c42-9e6650829d45";
+const String oneSignalIOS = "032d972e-3b84-42d0-9c42-9e6650829d45";

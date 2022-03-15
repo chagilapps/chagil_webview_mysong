@@ -48,11 +48,11 @@ class _MyAppState extends State<HomePage> {
 
     SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle().copyWith(
-          statusBarColor: Colors.black,
+          statusBarColor: mainAppColor,
           statusBarBrightness: Brightness.light,
-          statusBarIconBrightness: Brightness.dark,
+          statusBarIconBrightness: Brightness.light,
           systemStatusBarContrastEnforced:  true,
-          systemNavigationBarColor: Colors.deepPurple
+          systemNavigationBarColor: mainAppColor,
           // systemNavigationBarColor: Colors.pinkAccent,
         ));
     //
@@ -86,6 +86,7 @@ class _MyAppState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+   
 
         // theme: ThemeData(
         //

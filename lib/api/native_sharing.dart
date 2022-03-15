@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_share/flutter_share.dart';
-
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class NativeSharing {
 
 
@@ -21,8 +21,9 @@ class NativeSharing {
     }
     return IconButton(
         onPressed:()=> share(title: title,url: url!),
-        icon: Icon(Icons.share))
-    ;
+        icon: FaIcon(FontAwesomeIcons.solidShareSquare),
+
+    );
   }
 
 }

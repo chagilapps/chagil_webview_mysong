@@ -99,7 +99,7 @@ class _FlutterInappWebviewMainViewState
                   ),
             ),
           ),
-          appButtonBar(_webViewController),
+          // appButtonBar(_webViewController),
           // appButtonBar(_webViewController),
         ]),
       ),
