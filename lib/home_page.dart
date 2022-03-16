@@ -49,8 +49,9 @@ class _MyAppState extends State<HomePage> {
     SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle().copyWith(
           statusBarColor: mainAppColor,
-          statusBarBrightness: Brightness.light,
-          statusBarIconBrightness: Brightness.light,
+          //shows white text on status bar IOS
+          statusBarBrightness: Brightness.dark,
+          statusBarIconBrightness: Brightness.dark,
           systemStatusBarContrastEnforced:  true,
           systemNavigationBarColor: mainAppColor,
           // systemNavigationBarColor: Colors.pinkAccent,

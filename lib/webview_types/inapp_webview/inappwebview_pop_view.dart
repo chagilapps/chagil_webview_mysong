@@ -1,6 +1,7 @@
 // import 'package:mysong/app_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 import '../../api/native_sharing.dart';
@@ -82,6 +83,11 @@ Icon backIcon = Icon(Icons.close);
           child: Scaffold(
             appBar: (widget.showAppBar)
                 ? AppBar(
+              systemOverlayStyle: SystemUiOverlayStyle(
+                  systemStatusBarContrastEnforced: true,
+
+                  statusBarBrightness: Brightness.dark,
+                   ),
                 automaticallyImplyLeading:false,
 
               actions: [
