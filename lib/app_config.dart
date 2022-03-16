@@ -20,6 +20,7 @@ List<Widget> appWebView = [
 Uri appUri =  Uri(
   scheme: 'https',
   host: 'www.mysong.co.il',
+  // host:"chagiltest.netlify.app",
   path: '',
 );
 
