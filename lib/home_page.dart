@@ -124,7 +124,7 @@ class _MyAppState extends State<HomePage> {
                     preferredSize: Size.zero,
                   ),
             body:
-                ( internetConnected)?
+                ( !internetConnected)?
                 OfflineScreen()
                     :
             appWebView[0],
