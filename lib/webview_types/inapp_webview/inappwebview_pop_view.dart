@@ -41,16 +41,17 @@ class _InappwebviewPopViewState extends State<InappwebviewPopView> {
       isLoading = false;
     });
     if(Platform.isIOS){
-      SystemChrome.setSystemUIOverlayStyle(
-          SystemUiOverlayStyle().copyWith(
-            statusBarColor: mainAppColor,
-            //shows white text on status bar IOS
-            statusBarBrightness: Brightness.light,
-            statusBarIconBrightness: Brightness.light,
-            systemStatusBarContrastEnforced:  true,
-            systemNavigationBarColor: mainAppColor,
-            // systemNavigationBarColor: Colors.pinkAccent,
-          ));
+      // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
+      // SystemChrome.setSystemUIOverlayStyle(
+      //     SystemUiOverlayStyle().copyWith(
+      //       statusBarColor: mainAppColor,
+      //       //shows white text on status bar IOS
+      //       statusBarBrightness: Brightness.dark,
+      //       statusBarIconBrightness: Brightness.light,
+      //       systemStatusBarContrastEnforced:  true,
+      //       systemNavigationBarColor: mainAppColor,
+      //       // systemNavigationBarColor: Colors.pinkAccent,
+      //     ));
     }else{
       SystemChrome.setSystemUIOverlayStyle(
             SystemUiOverlayStyle().copyWith(
@@ -82,6 +83,17 @@ Icon backIcon = Icon(Icons.close);
 
   @override
   Widget build(BuildContext context) {
+    if(Platform.isIOS){
+      SystemChrome.setSystemUIOverlayStyle(
+          SystemUiOverlayStyle().copyWith(
+            statusBarColor: mainAppColor,
+            //shows white text on status bar IOS
+            statusBarBrightness: Brightness.dark,
+          ));
+    }
+
+
+
     if (progress < 1.0) {
       setState(() {
         isLoading = true;
@@ -115,7 +127,9 @@ Icon backIcon = Icon(Icons.close);
               //     statusBarBrightness: Brightness.dark,
               //      ),
                 automaticallyImplyLeading:false,
-
+              // brightness: Brightness.dark,
+              // systemOverlayStyle: SystemUiOverlayStyle.dark,
+              // backwardsCompatibility: false,
               actions: [
                 // NativeSharing().shareButton(url:url),
                 IconButton(
@@ -123,7 +137,14 @@ Icon backIcon = Icon(Icons.close);
                   onPressed: (){
                     // popBackButton(context);
                     Navigator.of(context).pop();
-
+                    if(Platform.isIOS){
+                      SystemChrome.setSystemUIOverlayStyle(
+                          SystemUiOverlayStyle().copyWith(
+                            statusBarColor: mainAppColor,
+                            //shows white text on status bar IOS
+                            statusBarBrightness: Brightness.light,
+                          ));
+                    }
                     }
 
                 ),

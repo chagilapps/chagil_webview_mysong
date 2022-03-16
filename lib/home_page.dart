@@ -44,7 +44,16 @@ class _MyAppState extends State<HomePage> {
       FlutterDownloader.registerCallback(downloadCallback);
     }
     if(Platform.isIOS){
-      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
+      // SystemChrome.setSystemUIOverlayStyle(
+      // SystemUiOverlayStyle().copyWith(
+      //   statusBarColor: mainAppColor,
+      //   //shows white text on status bar IOS
+      //   statusBarBrightness: Brightness.light,
+      //   statusBarIconBrightness: Brightness.light,
+      //   // systemStatusBarContrastEnforced:  true,
+      //   systemNavigationBarColor: mainAppColor,
+      //   // systemNavigationBarColor: Colors.pinkAccent,
+      // ));
     }else{
       SystemChrome.setSystemUIOverlayStyle(
           SystemUiOverlayStyle().copyWith(
@@ -99,8 +108,17 @@ class _MyAppState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    if(Platform.isIOS){
+      SystemChrome.setSystemUIOverlayStyle(
+          SystemUiOverlayStyle().copyWith(
+            statusBarColor: mainAppColor,
+            //shows white text on status bar IOS
+            statusBarBrightness: Brightness.light,
+          ));
+    }
+
     return MaterialApp(
-   
+
 
         // theme: ThemeData(
         //
