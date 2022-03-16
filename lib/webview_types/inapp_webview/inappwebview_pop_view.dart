@@ -1,4 +1,6 @@
 // import 'package:mysong/app_config.dart';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
@@ -38,6 +40,21 @@ class _InappwebviewPopViewState extends State<InappwebviewPopView> {
       progress = 0;
       isLoading = false;
     });
+    if(Platform.isIOS){
+      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
+    }else{
+      SystemChrome.setSystemUIOverlayStyle(
+            SystemUiOverlayStyle().copyWith(
+              statusBarColor: mainAppColor,
+              //shows white text on status bar IOS
+              statusBarBrightness: Brightness.light,
+              statusBarIconBrightness: Brightness.light,
+              systemStatusBarContrastEnforced:  true,
+              systemNavigationBarColor: mainAppColor,
+              // systemNavigationBarColor: Colors.pinkAccent,
+            ));
+    }
+
     super.initState();
   }
 Icon backIcon = Icon(Icons.close);
@@ -83,11 +100,11 @@ Icon backIcon = Icon(Icons.close);
           child: Scaffold(
             appBar: (widget.showAppBar)
                 ? AppBar(
-              systemOverlayStyle: SystemUiOverlayStyle(
-                  systemStatusBarContrastEnforced: true,
-
-                  statusBarBrightness: Brightness.dark,
-                   ),
+              // systemOverlayStyle: SystemUiOverlayStyle(
+              //     systemStatusBarContrastEnforced: true,
+              //
+              //     statusBarBrightness: Brightness.dark,
+              //      ),
                 automaticallyImplyLeading:false,
 
               actions: [

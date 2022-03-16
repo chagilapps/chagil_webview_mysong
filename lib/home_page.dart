@@ -43,19 +43,32 @@ class _MyAppState extends State<HomePage> {
 
       FlutterDownloader.registerCallback(downloadCallback);
     }
+    if(Platform.isIOS){
+      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
+    }else{
+      SystemChrome.setSystemUIOverlayStyle(
+          SystemUiOverlayStyle().copyWith(
+            statusBarColor: mainAppColor,
+            //shows white text on status bar IOS
+            statusBarBrightness: Brightness.light,
+            statusBarIconBrightness: Brightness.light,
+            // systemStatusBarContrastEnforced:  true,
+            systemNavigationBarColor: mainAppColor,
+            // systemNavigationBarColor: Colors.pinkAccent,
+          ));
+    }
 
 
-
-    SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle().copyWith(
-          statusBarColor: mainAppColor,
-          //shows white text on status bar IOS
-          statusBarBrightness: Brightness.dark,
-          statusBarIconBrightness: Brightness.dark,
-          systemStatusBarContrastEnforced:  true,
-          systemNavigationBarColor: mainAppColor,
-          // systemNavigationBarColor: Colors.pinkAccent,
-        ));
+    // SystemChrome.setSystemUIOverlayStyle(
+    //     SystemUiOverlayStyle().copyWith(
+    //       statusBarColor: mainAppColor,
+    //       //shows white text on status bar IOS
+    //       statusBarBrightness: Brightness.dark,
+    //       statusBarIconBrightness: Brightness.dark,
+    //       systemStatusBarContrastEnforced:  true,
+    //       systemNavigationBarColor: mainAppColor,
+    //       // systemNavigationBarColor: Colors.pinkAccent,
+    //     ));
     //
     // SystemUiOverlayStyle.dark.copyWith(
     //   statusBarColor: Colors.black,
@@ -105,6 +118,7 @@ class _MyAppState extends State<HomePage> {
               //   systemStatusBarContrastEnforced: true,
               //   statusBarBrightness: Brightness.light,
               //    ),
+
                     centerTitle: true,
                     title: Text(appBarTitle),
                     backgroundColor: mainAppColor,
