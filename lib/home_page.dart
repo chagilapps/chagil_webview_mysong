@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'dart:isolate';
 import 'dart:ui';
-
-
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:audio_webview/widget/offline_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
@@ -22,15 +22,32 @@ class HomePage extends StatefulWidget {
 }
 
 class _MyAppState extends State<HomePage> {
-
   ReceivePort _port = ReceivePort();
+  bool internetConnected = true;
+  late var subscription;
 
+  Future checkConnection () async  {
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    setConnectivityState(connectivityResult);
+  }
+
+  setConnectivityState (rlt){
+    if (rlt == ConnectivityResult.mobile  || rlt == ConnectivityResult.wifi ) {
+      setState(() {
+        internetConnected = true;
+      });
+      // I am connected to a mobile network.
+    } else{
+      // I am connected to a wifi network.
+      setState(() {
+        internetConnected = false;
+      });
+    }
+  }
 
   @override
   void initState() {
-    // initializeObeSignal();
     FlutterNativeSplash.remove();
-    // if (Platform.isAndroid){ WebView.platform = SurfaceAndroidWebView();}
     if(!Platform.isIOS){
       IsolateNameServer.registerPortWithName(
           _port.sendPort, 'downloader_send_port');
@@ -43,18 +60,7 @@ class _MyAppState extends State<HomePage> {
 
       FlutterDownloader.registerCallback(downloadCallback);
     }
-    if(Platform.isIOS){
-      // SystemChrome.setSystemUIOverlayStyle(
-      // SystemUiOverlayStyle().copyWith(
-      //   statusBarColor: mainAppColor,
-      //   //shows white text on status bar IOS
-      //   statusBarBrightness: Brightness.light,
-      //   statusBarIconBrightness: Brightness.light,
-      //   // systemStatusBarContrastEnforced:  true,
-      //   systemNavigationBarColor: mainAppColor,
-      //   // systemNavigationBarColor: Colors.pinkAccent,
-      // ));
-    }else{
+    if(!Platform.isIOS){
       SystemChrome.setSystemUIOverlayStyle(
           SystemUiOverlayStyle().copyWith(
             statusBarColor: mainAppColor,
@@ -67,27 +73,10 @@ class _MyAppState extends State<HomePage> {
           ));
     }
 
-
-    // SystemChrome.setSystemUIOverlayStyle(
-    //     SystemUiOverlayStyle().copyWith(
-    //       statusBarColor: mainAppColor,
-    //       //shows white text on status bar IOS
-    //       statusBarBrightness: Brightness.dark,
-    //       statusBarIconBrightness: Brightness.dark,
-    //       systemStatusBarContrastEnforced:  true,
-    //       systemNavigationBarColor: mainAppColor,
-    //       // systemNavigationBarColor: Colors.pinkAccent,
-    //     ));
-    //
-    // SystemUiOverlayStyle.dark.copyWith(
-    //   statusBarColor: Colors.black,
-    //   statusBarBrightness: Brightness.dark,
-    //   statusBarIconBrightness: Brightness.dark,
-    //
-    // );
-
-
-
+    subscription = Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
+      // Got a new connectivity status!
+      setConnectivityState(result);
+    });
     super.initState();
   }
 
@@ -96,6 +85,7 @@ class _MyAppState extends State<HomePage> {
     if(!Platform.isIOS) {
       IsolateNameServer.removePortNameMapping('downloader_send_port');
     }
+    subscription.cancel();
     super.dispose();
   }
 
@@ -119,24 +109,11 @@ class _MyAppState extends State<HomePage> {
 
     return MaterialApp(
 
-
-        // theme: ThemeData(
-        //
-        //  backgroundColor: Colors.blue,
-        //   // primarySwatch: ,
-        //   navigationBarTheme: NavigationBarThemeData(backgroundColor: Colors.green),
-        // ),
-        // color: Colors.pink,
         debugShowCheckedModeBanner: false,
         home:  Scaffold(
             appBar:
             showAppBar
                 ? AppBar(
-              // systemOverlayStyle: SystemUiOverlayStyle(
-              //   systemStatusBarContrastEnforced: true,
-              //   statusBarBrightness: Brightness.light,
-              //    ),
-
                     centerTitle: true,
                     title: Text(appBarTitle),
                     backgroundColor: mainAppColor,
@@ -146,7 +123,12 @@ class _MyAppState extends State<HomePage> {
                     child:SafeArea(child: SizedBox(),),
                     preferredSize: Size.zero,
                   ),
-            body:appWebView[0],
+            body:
+                ( !internetConnected)?
+                OfflineScreen()
+                    :
+            appWebView[0],
+
         ));
   }
 }

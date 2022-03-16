@@ -1,6 +1,7 @@
 // import 'package:mysong/app_config.dart';
 import 'dart:io';
 
+import 'package:audio_webview/widget/loading_logo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
@@ -9,6 +10,7 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import '../../api/native_sharing.dart';
 import '../../app_config.dart';
 import '../../application/files_downloader.dart';
+import '../../widget/progress_bar.dart';
 import '../../widget/tab_close_button.dart';
 import 'inapp_webview_config.dart';
 
@@ -95,10 +97,6 @@ class _InappwebviewPopViewState extends State<InappwebviewPopView> {
       setState(() {
         isLoading = true;
       });
-    } else {
-      setState(() {
-        isLoading = false;
-      });
     }
     // }else {
     return WillPopScope(
@@ -163,21 +161,10 @@ class _InappwebviewPopViewState extends State<InappwebviewPopView> {
                   ),
             body: Column(
               children: [
-                Container(
-                    child: progress < 1.0
-                        ? LinearProgressIndicator(
-                            value: 0.5,
-                            color: Color(0xffCC3B38),
-                            backgroundColor: Color(0xffCC3B38).withOpacity(0.5),
-                          )
-                        : Container()
+                WebviewProgressBar( progress: progress,),
 
-                    //RED = CC3B38 , GOLD = EBC68C
-                    ),
                 Expanded(
-                  child: Stack(
-                    children: [
-                      InAppWebView(
+                  child: InAppWebView(
                         windowId: widget.windowId,
                         initialUrlRequest: URLRequest(
                           url: widget.uri,
@@ -196,10 +183,20 @@ class _InappwebviewPopViewState extends State<InappwebviewPopView> {
                           _webViewController = controller;
                         },
                         onLoadStart:
-                            (InAppWebViewController controller, url) {},
-                        onLoadStop: (InAppWebViewController controller, url) {},
+                            (InAppWebViewController controller, url) {
+
+                          setState(() {
+                            isLoading = true;
+                          });
+                            },
+                        onLoadStop: (InAppWebViewController controller, url) {
+                          setState(() {
+                            isLoading = false;
+                          });
+                        },
                         onProgressChanged:
                             (InAppWebViewController controller, int p) {
+
                           print("progress    ${progress / 100}");
                           setState(() {
                             progress = p / 100;
@@ -217,37 +214,7 @@ class _InappwebviewPopViewState extends State<InappwebviewPopView> {
                           _config.onDownload(controller, uri);
                         },
                       ),
-                    ],
-                  ),
-                ),
-                // Container(
-                //   color: Colors.black,
-                //   height: 30,
-                //   child: Row(
-                //     mainAxisAlignment: MainAxisAlignment.center,
-                //     children: [
-                //       IconButton(
-                //           icon: Icon(
-                //             Icons.close,
-                //             textDirection: TextDirection.ltr,
-                //             size: 25,
-                //             color: Colors.white,
-                //           ),
-                //           onPressed: () {
-                //             // popBackButton(context);
-                //             Navigator.of(context).pop();
-                //             if (Platform.isIOS) {
-                //               SystemChrome.setSystemUIOverlayStyle(
-                //                   SystemUiOverlayStyle().copyWith(
-                //                 statusBarColor: mainAppColor,
-                //                 //shows white text on status bar IOS
-                //                 statusBarBrightness: Brightness.light,
-                //               ));
-                //             }
-                //           }),
-                //     ],
-                //   ),
-                // ),
+                )
               ],
             ),
           ),

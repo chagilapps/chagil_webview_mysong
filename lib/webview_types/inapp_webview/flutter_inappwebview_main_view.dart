@@ -3,6 +3,7 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import '../../app_config.dart';
 import '../../application/links_navigation.dart';
 import '../../widget/app_button_bar.dart';
+import '../../widget/progress_bar.dart';
 import 'inapp_webview_config.dart';
 
 class FlutterInappWebviewMainView extends StatefulWidget {
@@ -36,19 +37,9 @@ class _FlutterInappWebviewMainViewState
         },
       child: Container(
         child: Column(children: <Widget>[
+          WebviewProgressBar( progress: progress,),
 
-          Container(
-              child:
-              progress < 1.0 ?
-              LinearProgressIndicator(
-                value: 0.5,
-                color: Color(0xffCC3B38),
-                backgroundColor: Color(0xffCC3B38).withOpacity(0.5)  ,
-              )
-                  : Container()
 
-            //RED = CC3B38 , GOLD = EBC68C
-          ),
           Expanded(
             child: Container(
               child: InAppWebView(
