@@ -38,9 +38,17 @@ class _FlutterInappWebviewMainViewState
         child: Column(children: <Widget>[
 
           Container(
-              child: progress < 1.0
-                  ? LinearProgressIndicator(value: progress)
-                  : Container()),
+              child:
+              progress < 1.0 ?
+              LinearProgressIndicator(
+                value: 0.5,
+                color: Color(0xffCC3B38),
+                backgroundColor: Color(0xffCC3B38).withOpacity(0.5)  ,
+              )
+                  : Container()
+
+            //RED = CC3B38 , GOLD = EBC68C
+          ),
           Expanded(
             child: Container(
               child: InAppWebView(

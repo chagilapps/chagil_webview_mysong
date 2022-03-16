@@ -9,13 +9,13 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import '../../api/native_sharing.dart';
 import '../../app_config.dart';
 import '../../application/files_downloader.dart';
+import '../../widget/tab_close_button.dart';
 import 'inapp_webview_config.dart';
 
 class InappwebviewPopView extends StatefulWidget {
   int? windowId;
   Uri? uri;
   bool showAppBar;
-
 
   InappwebviewPopView({
     Key? key,
@@ -33,14 +33,15 @@ class _InappwebviewPopViewState extends State<InappwebviewPopView> {
   late double progress;
   InappWebviewConfig _config = InappWebviewConfig();
   bool isLoading = false;
-  String url ="";
+  String url = "";
+
   @override
   void initState() {
     setState(() {
       progress = 0;
       isLoading = false;
     });
-    if(Platform.isIOS){
+    if (Platform.isIOS) {
       // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
       // SystemChrome.setSystemUIOverlayStyle(
       //     SystemUiOverlayStyle().copyWith(
@@ -52,47 +53,43 @@ class _InappwebviewPopViewState extends State<InappwebviewPopView> {
       //       systemNavigationBarColor: mainAppColor,
       //       // systemNavigationBarColor: Colors.pinkAccent,
       //     ));
-    }else{
-      SystemChrome.setSystemUIOverlayStyle(
-            SystemUiOverlayStyle().copyWith(
-              statusBarColor: mainAppColor,
-              //shows white text on status bar IOS
-              statusBarBrightness: Brightness.light,
-              statusBarIconBrightness: Brightness.light,
-              systemStatusBarContrastEnforced:  true,
-              systemNavigationBarColor: mainAppColor,
-              // systemNavigationBarColor: Colors.pinkAccent,
-            ));
+    } else {
+      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle().copyWith(
+        statusBarColor: mainAppColor,
+        //shows white text on status bar IOS
+        statusBarBrightness: Brightness.light,
+        statusBarIconBrightness: Brightness.light,
+        systemStatusBarContrastEnforced: true,
+        systemNavigationBarColor: mainAppColor,
+        // systemNavigationBarColor: Colors.pinkAccent,
+      ));
     }
 
     super.initState();
   }
-Icon backIcon = Icon(Icons.close);
 
-  popBackButton (ctx) async {
+  Icon backIcon = Icon(Icons.close);
+
+  popBackButton(ctx) async {
     bool _canBack = false;
 
-    await _webViewController!.canGoBack().then((value) => _canBack =value);
-    if(_canBack){
-    _webViewController!.goBack();
-    }else{
-    Navigator.of(ctx).pop();
+    await _webViewController!.canGoBack().then((value) => _canBack = value);
+    if (_canBack) {
+      _webViewController!.goBack();
+    } else {
+      Navigator.of(ctx).pop();
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
-    if(Platform.isIOS){
-      SystemChrome.setSystemUIOverlayStyle(
-          SystemUiOverlayStyle().copyWith(
-            statusBarColor: mainAppColor,
-            //shows white text on status bar IOS
-            statusBarBrightness: Brightness.dark,
-          ));
+    if (Platform.isIOS) {
+      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle().copyWith(
+        statusBarColor: mainAppColor,
+        //shows white text on status bar IOS
+        statusBarBrightness: Brightness.dark,
+      ));
     }
-
-
 
     if (progress < 1.0) {
       setState(() {
@@ -107,12 +104,12 @@ Icon backIcon = Icon(Icons.close);
     return WillPopScope(
       onWillPop: () async {
         bool _canBack = false;
-        await _webViewController!.canGoBack().then((value) => _canBack =value);
-        if(_canBack){
-        _webViewController!.goBack();
-        return false;
-        }else{
-        return true;
+        await _webViewController!.canGoBack().then((value) => _canBack = value);
+        if (_canBack) {
+          _webViewController!.goBack();
+          return false;
+        } else {
+          return true;
         }
       },
       child: SafeArea(
@@ -120,41 +117,45 @@ Icon backIcon = Icon(Icons.close);
           textDirection: TextDirection.rtl,
           child: Scaffold(
             appBar: (widget.showAppBar)
-                ? AppBar(
-              // systemOverlayStyle: SystemUiOverlayStyle(
-              //     systemStatusBarContrastEnforced: true,
-              //
-              //     statusBarBrightness: Brightness.dark,
-              //      ),
-                automaticallyImplyLeading:false,
-              // brightness: Brightness.dark,
-              // systemOverlayStyle: SystemUiOverlayStyle.dark,
-              // backwardsCompatibility: false,
-              actions: [
-                // NativeSharing().shareButton(url:url),
-                IconButton(
-                  icon:   Icon(Icons.close,textDirection: TextDirection.ltr,),
-                  onPressed: (){
-                    // popBackButton(context);
-                    Navigator.of(context).pop();
-                    if(Platform.isIOS){
-                      SystemChrome.setSystemUIOverlayStyle(
-                          SystemUiOverlayStyle().copyWith(
-                            statusBarColor: mainAppColor,
-                            //shows white text on status bar IOS
-                            statusBarBrightness: Brightness.light,
-                          ));
-                    }
-                    }
+                ? PreferredSize(
+                    preferredSize: Size.fromHeight(35.0),
+                    child: AppBar(
+                      // systemOverlayStyle: SystemUiOverlayStyle(
+                      //     systemStatusBarContrastEnforced: true,
+                      //
+                      //     statusBarBrightness: Brightness.dark,
+                      //      ),
+                      automaticallyImplyLeading: false,
+                      // brightness: Brightness.dark,
+                      // systemOverlayStyle: SystemUiOverlayStyle.dark,
+                      // backwardsCompatibility: false,
+                      actions: [
+                        // NativeSharing().shareButton(url:url),
+                        TabCloseButton(),
 
-                ),
-              ],
+                        // IconButton(
+                        //     icon: Icon(
+                        //       Icons.close,
+                        //       textDirection: TextDirection.ltr,
+                        //       size: 20,
+                        //     ),
+                        //     onPressed: () {
+                        //       // popBackButton(context);
+                        //       Navigator.of(context).pop();
+                        //       if (Platform.isIOS) {
+                        //         SystemChrome.setSystemUIOverlayStyle(
+                        //             SystemUiOverlayStyle().copyWith(
+                        //           statusBarColor: mainAppColor,
+                        //           //shows white text on status bar IOS
+                        //           statusBarBrightness: Brightness.light,
+                        //         ));
+                        //       }
+                        //     }),
+                      ],
 
-
-
-
-                    backgroundColor: mainAppColor,
-                    iconTheme: IconThemeData(color: Colors.white),
+                      backgroundColor: mainAppColor,
+                      iconTheme: IconThemeData(color: Colors.white),
+                    ),
                   )
                 : PreferredSize(
                     preferredSize: Size.zero,
@@ -164,8 +165,15 @@ Icon backIcon = Icon(Icons.close);
               children: [
                 Container(
                     child: progress < 1.0
-                        ? LinearProgressIndicator(value: progress)
-                        : Container()),
+                        ? LinearProgressIndicator(
+                            value: 0.5,
+                            color: Color(0xffCC3B38),
+                            backgroundColor: Color(0xffCC3B38).withOpacity(0.5),
+                          )
+                        : Container()
+
+                    //RED = CC3B38 , GOLD = EBC68C
+                    ),
                 Expanded(
                   child: Stack(
                     children: [
@@ -175,51 +183,71 @@ Icon backIcon = Icon(Icons.close);
                           url: widget.uri,
                         ),
                         initialOptions: InAppWebViewGroupOptions(
-                          android:  _config.androidOptions,
+                          android: _config.androidOptions,
                           ios: _config.IOSOptions,
                           crossPlatform: _config.crossPlatform,
                         ),
                         onWebViewCreated: (InAppWebViewController controller) {
-                           controller.getUrl().then((urli) {
-                             setState(() {
-                               url = urli.toString();
-                             });
-                           });
+                          controller.getUrl().then((urli) {
+                            setState(() {
+                              url = urli.toString();
+                            });
+                          });
                           _webViewController = controller;
-
-
                         },
-                        onLoadStart: (InAppWebViewController controller, url) {
-
-                        },
-                        onLoadStop: (InAppWebViewController controller, url) {
-
-                        },
-                        onProgressChanged: (InAppWebViewController controller, int p) {
+                        onLoadStart:
+                            (InAppWebViewController controller, url) {},
+                        onLoadStop: (InAppWebViewController controller, url) {},
+                        onProgressChanged:
+                            (InAppWebViewController controller, int p) {
                           print("progress    ${progress / 100}");
                           setState(() {
                             progress = p / 100;
                           });
-
                         },
-
-                        shouldOverrideUrlLoading:(controller, action) async =>  _config.shouldOverrideUrlLoading(controller, action) ,
-
-                        onCreateWindow: (controller, action){
-
-                          return _config.onCreateWindow(context, controller, action);
+                        shouldOverrideUrlLoading: (controller, action) async =>
+                            _config.shouldOverrideUrlLoading(
+                                controller, action),
+                        onCreateWindow: (controller, action) {
+                          return _config.onCreateWindow(
+                              context, controller, action);
                         },
-                        onDownloadStart:(controller, uri){
+                        onDownloadStart: (controller, uri) {
                           print("onDownloadStart");
                           _config.onDownload(controller, uri);
-
-                        } ,
-
+                        },
                       ),
-
                     ],
                   ),
                 ),
+                // Container(
+                //   color: Colors.black,
+                //   height: 30,
+                //   child: Row(
+                //     mainAxisAlignment: MainAxisAlignment.center,
+                //     children: [
+                //       IconButton(
+                //           icon: Icon(
+                //             Icons.close,
+                //             textDirection: TextDirection.ltr,
+                //             size: 25,
+                //             color: Colors.white,
+                //           ),
+                //           onPressed: () {
+                //             // popBackButton(context);
+                //             Navigator.of(context).pop();
+                //             if (Platform.isIOS) {
+                //               SystemChrome.setSystemUIOverlayStyle(
+                //                   SystemUiOverlayStyle().copyWith(
+                //                 statusBarColor: mainAppColor,
+                //                 //shows white text on status bar IOS
+                //                 statusBarBrightness: Brightness.light,
+                //               ));
+                //             }
+                //           }),
+                //     ],
+                //   ),
+                // ),
               ],
             ),
           ),
