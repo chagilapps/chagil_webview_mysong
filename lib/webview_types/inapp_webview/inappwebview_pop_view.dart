@@ -41,7 +41,16 @@ class _InappwebviewPopViewState extends State<InappwebviewPopView> {
       isLoading = false;
     });
     if(Platform.isIOS){
-      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
+      SystemChrome.setSystemUIOverlayStyle(
+          SystemUiOverlayStyle().copyWith(
+            statusBarColor: mainAppColor,
+            //shows white text on status bar IOS
+            statusBarBrightness: Brightness.light,
+            statusBarIconBrightness: Brightness.light,
+            systemStatusBarContrastEnforced:  true,
+            systemNavigationBarColor: mainAppColor,
+            // systemNavigationBarColor: Colors.pinkAccent,
+          ));
     }else{
       SystemChrome.setSystemUIOverlayStyle(
             SystemUiOverlayStyle().copyWith(
