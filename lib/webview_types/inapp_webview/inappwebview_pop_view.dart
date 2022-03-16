@@ -85,11 +85,12 @@ Icon backIcon = Icon(Icons.close);
                 automaticallyImplyLeading:false,
 
               actions: [
-                NativeSharing().shareButton(url:url),
+                // NativeSharing().shareButton(url:url),
                 IconButton(
-                  icon:   Icon(Icons.arrow_back_ios,textDirection: TextDirection.ltr,),
+                  icon:   Icon(Icons.close,textDirection: TextDirection.ltr,),
                   onPressed: (){
-                    popBackButton(context);
+                    // popBackButton(context);
+                    Navigator.of(context).pop();
 
                     }
 
