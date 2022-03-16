@@ -16,16 +16,19 @@ class InappWebviewConfig {
   );
 
   IOSInAppWebViewOptions IOSOptions = IOSInAppWebViewOptions(
-
+    allowsInlineMediaPlayback: true,
+    allowsPictureInPictureMediaPlayback: true,
   );
 
   InAppWebViewOptions crossPlatform = InAppWebViewOptions(
-
+    javaScriptEnabled: true,
       useShouldOverrideUrlLoading: true,
       allowFileAccessFromFileURLs: true,
       allowUniversalAccessFromFileURLs: true,
       useOnDownloadStart: true,
-      javaScriptCanOpenWindowsAutomatically: true
+      // javaScriptCanOpenWindowsAutomatically: true,
+      userAgent: "Mozilla/5.0 (iPhone; CPU iPhone OS 15_3_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.3 Mobile/15E148 Safari/604.1",
+      mediaPlaybackRequiresUserGesture: false,
   );
 
 

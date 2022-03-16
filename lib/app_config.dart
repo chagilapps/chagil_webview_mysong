@@ -47,7 +47,7 @@ bool openSpecifichostsInLauncher = true;
 List<String> hostStartWith = ["api","wa"];
 List<String> pathContain = ["download"];
 List<String> specificHostInTab = ["download",];
-List<String> specificHostInBrowser = ["www.facebook.com","www.youtube.com","www.instegram.com"];
+List<String> specificHostInBrowser = ["www.facebook.com","www.instegram.com"];
 
 
 const String oneSignalAndroid = "032d972e-3b84-42d0-9c42-9e6650829d45";
