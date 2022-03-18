@@ -41,13 +41,21 @@ class InappWebviewConfig {
       }
 
       Future<bool> onCreateWindow (context,controller, action)  async {
-        var _linksNavigation = LinksNavigation(uri: action.request.url!,controller: controller);
+        bool openNewWindow;
+        if (action.request.url.toString().contains(
+            "api.whatsapp")) {
+          LinksNavigation.launchURL(action.request.url.toString());
+          openNewWindow = false;
+        } else {
+          var _linksNavigation = LinksNavigation(
+              uri: action.request.url!, controller: controller);
 
-        _linksNavigation.onCreateWindow(context, controller, action);
+          _linksNavigation.onCreateWindow(context, controller, action);
 
-        return true;
+          openNewWindow = true;
+        }
+        return openNewWindow;
       }
-
       void onDownload (controller, uri){
     String _url =uri.toString();
     _url.lastIndexOf('/');

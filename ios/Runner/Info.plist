@@ -30,6 +30,8 @@
 		<string>whatsapp</string>
 		<string>instagram</string>
 		<string>fb</string>
+		<string>mailto</string>
+		<string>tel</string
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
