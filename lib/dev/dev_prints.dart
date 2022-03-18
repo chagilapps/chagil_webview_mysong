@@ -8,22 +8,19 @@ class DevPrint extends StatelessWidget {
 
   static createLog(String log){
     print(log);
-    logs.add(
-    Card(
-      color: Colors.white,child: Column(
-        children: [
-        Text(DateTime.now().toString()),
-      Text(log,style: TextStyle(fontSize: 15),),
-
-    ]),
-    ),
-    );
+    // logs.add(
+    // Card(
+    //   color: Colors.white,child: Column(
+    //     children: [
+    //     Text(DateTime.now().toString()),
+    //   Text(log,style: TextStyle(fontSize: 15),),
+    //
+    // ]),
+    // ),
+    // );
   }
 
-  static List<Card> logs =[
-
-
-  ];
+  // static List<Card> logs =[];
 
 
 
@@ -60,7 +57,10 @@ class DevPrint extends StatelessWidget {
         Expanded(
           child: ListView(
             reverse: true,
-            children: logs,),
+            children:
+            // logs
+            [Container()]
+            ,),
         ),
       ],
     );

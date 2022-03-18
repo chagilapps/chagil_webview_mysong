@@ -60,6 +60,8 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSUserTrackingUsageDescription</key>
+    	<string>Tracking is requested only for the use of official third party libraries by OneSignal, Google and Facebook. It may be used to deliver personalized ads to you. This app will be fully functional regardless of which privacy option is chosen. We personally do not track any user information.</string>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
