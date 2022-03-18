@@ -34,47 +34,31 @@ class LinksNavigation {
   static launchURL(url) async {
     String _url;
     _url = url.toString();
-    try {
-      // DevPrint.createLog(.createLog('start Launching url $_url');
-       DevPrint.createLog("start Launching url $_url");
-      if (Platform.isIOS) {
-         DevPrint.createLog("IOS Platform");
-        if (_url != null && _url.isNotEmpty) {
-           DevPrint.createLog("_url != null");
-           DevPrint.createLog(await canLaunch(_url).toString());
 
-          if (await canLaunch(_url)) {
-             DevPrint.createLog("canLaunch url");
-            final bool _nativeAppLaunchSucceeded = await launch(
+      if (await canLaunch(_url)){
+        DevPrint.createLog("canLaunch $_url");
+
+        if(_url.startsWith("http")){
+          try {
+            await launch(
               _url,
-              forceSafariVC: false,
-              universalLinksOnly: true,
             );
-            if (!_nativeAppLaunchSucceeded) {
-               DevPrint.createLog(" _nativeAppLaunchSucceeded false");
-              await launch(_url, forceSafariVC: true);
-            } else {
-               DevPrint.createLog(" _nativeAppLaunchSucceeded true");
-            }
-          } else {
+          } catch (e) {
+            DevPrint.createLog("url luncher error $e");
+          }
+        }else{
+          try {
             await launch(
               _url,
               forceSafariVC: false,
+                universalLinksOnly:true,
               forceWebView: false,
-              universalLinksOnly: true,
             );
+          } catch (e) {
+            DevPrint.createLog("url luncher error $e");
           }
         }
-      } else {
-        if (await canLaunch(_url)) {
-          await launch(_url);
-        } else {
-          throw 'Could not launch $url';
-        }
       }
-    } catch (e) {
-       DevPrint.createLog("url luncher error $e");
-    }
   }
 
   //launcher
@@ -88,7 +72,7 @@ class LinksNavigation {
       case 0:
         //load inapp webview
         {
-           DevPrint.createLog("0: navigate to page in webview");
+          DevPrint.createLog("0: navigate to page in webview");
           // _loadUrlInApp(controller,uri.toString());
           return NavigationActionPolicy.ALLOW;
         }
@@ -96,7 +80,7 @@ class LinksNavigation {
       case 1:
         //load with launcher
         {
-           DevPrint.createLog("1: navigate to url launcher");
+          DevPrint.createLog("1: navigate to url launcher");
           _launchURL(uri);
           return NavigationActionPolicy.CANCEL;
         }
@@ -104,14 +88,14 @@ class LinksNavigation {
       case 2:
         //open new tab
         {
-           DevPrint.createLog("2: navigate to new tab");
+          DevPrint.createLog("2: navigate to new tab");
           openInNewTab(uri: uri);
           return NavigationActionPolicy.CANCEL;
         }
 
       default:
         {
-           DevPrint.createLog("default: open in webview");
+          DevPrint.createLog("default: open in webview");
           return NavigationActionPolicy.ALLOW;
           // _loadUrlInApp(controller,uri.toString());
         }
@@ -131,14 +115,16 @@ class LinksNavigation {
   int linksHandler({required Uri uri}) {
     //if the scheme is not http or https (usually api like waze:// or mailto:)
     if (!uri.scheme.startsWith("http")) {
-       DevPrint.createLog("linksHandler choice: not start with http \n return 1");
+      DevPrint.createLog(
+          "linksHandler choice: not start with http \n return 1");
       return 1;
     } else {
-       DevPrint.createLog("linksHandler choice: start with http");
+      DevPrint.createLog("linksHandler choice: start with http");
       //if the link is not at teh same host of the app host launch in browser
       if (openExternalLinksInBrowser) {
         if (uri.host != appUri.host) {
-           DevPrint.createLog("linksHandler choice:extrenal link, open in browser \n return 0");
+          DevPrint.createLog(
+              "linksHandler choice:extrenal link, open in browser \n return 0");
           return 0;
         }
       }
@@ -146,7 +132,8 @@ class LinksNavigation {
       if (excludeHostList) {
         for (var h in hostStartWith) {
           if (uri.host.contains(h)) {
-             DevPrint.createLog("linksHandler choice: in excluded host list open in browser,  continue to open in webview \n return 0");
+            DevPrint.createLog(
+                "linksHandler choice: in excluded host list open in browser,  continue to open in webview \n return 0");
             return 0;
           }
         }
@@ -155,7 +142,8 @@ class LinksNavigation {
       if (excludePathList) {
         for (var p in pathContain) {
           if (uri.host.contains(p)) {
-             DevPrint.createLog("linksHandler choice: in excluded path list open in browser \n return 0");
+            DevPrint.createLog(
+                "linksHandler choice: in excluded path list open in browser \n return 0");
             return 0;
           }
         }
@@ -164,7 +152,8 @@ class LinksNavigation {
       if (openSpecifichostsInLauncher) {
         for (var p in specificHostInBrowser) {
           if (uri.host == p) {
-             DevPrint.createLog("linksHandler choice: specific host open in browser \n return 1");
+            DevPrint.createLog(
+                "linksHandler choice: specific host open in browser \n return 1");
             return 1;
           }
         }
@@ -173,13 +162,14 @@ class LinksNavigation {
       if (openSpecificHostsInTab) {
         for (var p in specificHostInTab) {
           if (uri.host.contains(p)) {
-             DevPrint.createLog("linksHandler choice: in excluded list open in tab \n return 2");
+            DevPrint.createLog(
+                "linksHandler choice: in excluded list open in tab \n return 2");
             return 2;
           }
         }
       }
     }
-     DevPrint.createLog("default http open in webview \n return 0");
+    DevPrint.createLog("default http open in webview \n return 0");
     return 0;
   }
 
