@@ -16,7 +16,7 @@ class FileDownloader {
 
   newDownload(name, String downloadUrl) {
     if (Platform.isIOS) {
-      LinksNavigation.launchURL(downloadUrl);
+      LinksNavigation.launchURL(Uri.parse(downloadUrl) );
     } else {
       checkAndRequestPermission()
           .then((value) => _requestDownload(name: name, link: downloadUrl));
