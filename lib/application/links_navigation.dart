@@ -34,16 +34,24 @@ class LinksNavigation {
     String _url;
     _url = url.toString();
     try {
+      print("start Launching url $_url");
       if (Platform.isIOS) {
-        if (url != null && _url.isNotEmpty) {
+        print("IOS Platform");
+        if (_url != null && _url.isNotEmpty) {
+          print("_url != null");
+          canLaunch(_url).catchError((onError)=> print("error launching url $onError"));
           if (await canLaunch(_url)) {
+            print("canLaunch url");
             final bool _nativeAppLaunchSucceeded = await launch(
               _url,
               forceSafariVC: false,
               universalLinksOnly: true,
             );
             if (!_nativeAppLaunchSucceeded) {
+              print(" _nativeAppLaunchSucceeded false");
               await launch(_url, forceSafariVC: true);
+            }else{
+              print(" _nativeAppLaunchSucceeded true");
             }
           }
         }
