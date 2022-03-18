@@ -1,3 +1,4 @@
+import 'package:audio_webview/application/links_navigation.dart';
 import 'package:audio_webview/home_page.dart';
 import 'package:flutter/material.dart';
 
@@ -36,15 +37,11 @@ class _DevHomeState extends State<DevHome> {
           // ),
           SafeArea(child: displayView[index],),
           
-          // floatingActionButton: FloatingActionButton(
-          //   onPressed: (){
-          //     Navigator.of(context).push(
-          //       MaterialPageRoute (
-          //         builder: (BuildContext context) =>  DevPrint(),
-          //       ),
-          //     );
-          //   },
-          // ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: (){
+              LinksNavigation.launchURL(Uri.parse("tel:57836389"));
+            },
+          ),
           bottomNavigationBar: BottomNavigationBar(
             onTap: (currentIndex){
               print (currentIndex);
