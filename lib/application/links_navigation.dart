@@ -60,6 +60,7 @@ class LinksNavigation {
             await launch(
               _url,
               forceSafariVC: false,
+              forceWebView: false,
               universalLinksOnly: true,
             );
           }
