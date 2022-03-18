@@ -39,7 +39,7 @@ class LinksNavigation {
         print("IOS Platform");
         if (_url != null && _url.isNotEmpty) {
           print("_url != null");
-          canLaunch(_url).catchError((onError)=> print("error launching url $onError"));
+          await canLaunch(_url).catchError((onError)=> print("error launching url $onError"));
           if (await canLaunch(_url)) {
             print("canLaunch url");
             final bool _nativeAppLaunchSucceeded = await launch(
