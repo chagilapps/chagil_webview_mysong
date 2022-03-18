@@ -26,8 +26,8 @@
 	<array>
 		<string>https</string>
 		<string>http</string>
-		<string>tel</string>
 		<string>mailto</string>
+		<string>tel</string>
 		<string>youtube</string>
 		<string>whatsapp</string>
 		<string>instagram</string>
