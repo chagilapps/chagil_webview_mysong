@@ -70,6 +70,7 @@ class LinksNavigation {
       case 0:
         //load inapp webview
         {
+          print("navigate to page in webview");
           // _loadUrlInApp(controller,uri.toString());
           return NavigationActionPolicy.ALLOW;
         }
@@ -77,6 +78,7 @@ class LinksNavigation {
       case 1:
         //load with launcher
         {
+          print("navigate to url launcher");
           _launchURL(uri);
           return NavigationActionPolicy.CANCEL;
         }
@@ -84,12 +86,14 @@ class LinksNavigation {
       case 2:
         //open new tab
         {
+          print("navigate to new tab");
           openInNewTab(uri: uri);
           return NavigationActionPolicy.CANCEL;
         }
 
       default:
         {
+          print("default - open in webview");
           return NavigationActionPolicy.ALLOW;
           // _loadUrlInApp(controller,uri.toString());
         }
@@ -109,11 +113,15 @@ class LinksNavigation {
   int linksHandler({required Uri uri}) {
     //if the scheme is not http or https (usually api like waze:// or mailto:)
     if (!uri.scheme.startsWith("http")) {
+      print("linksHandler choice: not start with http");
       return 1;
     } else {
+      print("linksHandler choice: start with http");
       //if the link is not at teh same host of the app host launch in browser
       if (openExternalLinksInBrowser) {
+
         if (uri.host != appUri.host) {
+          print("linksHandler choice:extrenal link, open in browser");
           return 0;
         }
       }
@@ -121,6 +129,7 @@ class LinksNavigation {
       if (excludeHostList) {
         for (var h in hostStartWith) {
           if (uri.host.contains(h)) {
+            print("linksHandler choice: in excluded host list open in browser");
             return 0;
           }
         }
@@ -129,6 +138,7 @@ class LinksNavigation {
       if (excludePathList) {
         for (var p in pathContain) {
           if (uri.host.contains(p)) {
+            print("linksHandler choice: in excluded path list open in browser");
             return 0;
           }
         }
@@ -137,6 +147,7 @@ class LinksNavigation {
       if (openSpecifichostsInLauncher) {
         for (var p in specificHostInBrowser) {
           if (uri.host == p) {
+            print("linksHandler choice: specific host open in browser");
             return 1;
           }
         }
@@ -145,11 +156,13 @@ class LinksNavigation {
       if (openSpecificHostsInTab) {
         for (var p in specificHostInTab) {
           if (uri.host.contains(p)) {
+            print("linksHandler choice: in excluded list open in tab");
             return 2;
           }
         }
       }
     }
+    print("default http open in webview");
     return 0;
   }
 
