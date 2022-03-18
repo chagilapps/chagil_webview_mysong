@@ -40,7 +40,7 @@ class LinksNavigation {
         if (_url != null && _url.isNotEmpty) {
           print("_url != null");
           print(await canLaunch(_url));
-              launch(_url).catchError((error, stackTrace) => print(error));
+
           if (await canLaunch(_url)) {
             print("canLaunch url");
             final bool _nativeAppLaunchSucceeded = await launch(
@@ -51,9 +51,15 @@ class LinksNavigation {
             if (!_nativeAppLaunchSucceeded) {
               print(" _nativeAppLaunchSucceeded false");
               await launch(_url, forceSafariVC: true);
-            }else{
+            } else {
               print(" _nativeAppLaunchSucceeded true");
             }
+          } else {
+            await launch(
+              _url,
+              forceSafariVC: false,
+              universalLinksOnly: true,
+            );
           }
         }
       } else {
@@ -128,7 +134,6 @@ class LinksNavigation {
       print("linksHandler choice: start with http");
       //if the link is not at teh same host of the app host launch in browser
       if (openExternalLinksInBrowser) {
-
         if (uri.host != appUri.host) {
           print("linksHandler choice:extrenal link, open in browser");
           return 0;
