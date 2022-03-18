@@ -35,13 +35,15 @@ class _DevHomeState extends State<DevHome> {
           //     Expanded(flex:30,child: displayView[1]),
           //   ],
           // ),
-          SafeArea(child: displayView[index],),
+          SafeArea(child:
+          displayView[index],),
           
           floatingActionButton: FloatingActionButton(
             onPressed: (){
-              LinksNavigation.launchURL(Uri.parse("tel:57836389"));
+              LinksNavigation.launchURL(Uri.parse("tel://57836389"));
             },
           ),
+
           bottomNavigationBar: BottomNavigationBar(
             onTap: (currentIndex){
               print (currentIndex);
