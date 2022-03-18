@@ -4,6 +4,7 @@ class DevPrint extends StatelessWidget {
   DevPrint({Key? key}) : super(key: key);
 
   static createLog(String log){
+    print(log);
     logs.add(
     Card(
       color: Colors.white,child: Column(

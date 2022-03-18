@@ -34,15 +34,15 @@ class LinksNavigation {
   static launchURL(url) async {
     String _url;
     _url = url.toString();
-
-      if (await canLaunch(_url)){
+// _url = "error://www.eeroor.l";
+     try {await canLaunch(_url);
         DevPrint.createLog("canLaunch $_url");
 
         if(_url.startsWith("http")){
           try {
             await launch(
               _url,
-            );
+            ).then((value) =>  DevPrint.createLog("started ...")).whenComplete(() =>  DevPrint.createLog("compleated ")) .onError((error, stackTrace) =>  DevPrint.createLog("error... $error"));;
           } catch (e) {
             DevPrint.createLog("url luncher error $e");
           }
@@ -53,12 +53,14 @@ class LinksNavigation {
               forceSafariVC: false,
                 universalLinksOnly:true,
               forceWebView: false,
-            );
+            ).then((value) =>  DevPrint.createLog("started ...")).whenComplete(() =>  DevPrint.createLog("compleated ")) .onError((error, stackTrace) =>  DevPrint.createLog("error... $error"));;
           } catch (e) {
             DevPrint.createLog("url luncher error $e");
           }
         }
-      }
+      }catch(e){
+       DevPrint.createLog("canLaunch error $e");
+     }
   }
 
   //launcher
