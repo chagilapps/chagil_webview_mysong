@@ -39,7 +39,7 @@ class LinksNavigation {
         print("IOS Platform");
         if (_url != null && _url.isNotEmpty) {
           print("_url != null");
-          print(await canLaunch(_url);
+          print(await canLaunch(_url));
               launch(_url).catchError((error, stackTrace) => print(error));
           if (await canLaunch(_url)) {
             print("canLaunch url");
