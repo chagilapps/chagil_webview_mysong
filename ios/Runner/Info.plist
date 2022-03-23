@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>מייסונג</string>
+	<string>MYSONG | מייסונג</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -42,6 +42,8 @@
 	</dict>
 	<key>NSAppleMusicUsageDescription</key>
 	<string>ask user permission to save songs in local storage</string>
+	<key>NSUserTrackingUsageDescription</key>
+	<string>Tracking is requested only for the use of official third party libraries by OneSignal, Google and Facebook. It may be used to deliver personalized ads to you. This app will be fully functional regardless of which privacy option is chosen. We personally do not track any user information.</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>audio</string>
@@ -60,8 +62,6 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>NSUserTrackingUsageDescription</key>
-    	<string>Tracking is requested only for the use of official third party libraries by OneSignal, Google and Facebook. It may be used to deliver personalized ads to you. This app will be fully functional regardless of which privacy option is chosen. We personally do not track any user information.</string>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

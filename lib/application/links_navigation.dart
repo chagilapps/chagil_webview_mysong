@@ -33,7 +33,7 @@ class LinksNavigation {
 
   static launchURL(Uri uri) async {
     String _url;
-    _url = uri.toString();
+    _url = uri.toString().trim();
 // _url = "error://www.eeroor.l";
      try {await canLaunch(_url);
         DevPrint.createLog("canLaunch $_url");
