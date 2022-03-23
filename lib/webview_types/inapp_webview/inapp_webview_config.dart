@@ -6,6 +6,7 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import '../../app_config.dart';
 import '../../application/files_downloader.dart';
 import '../../application/links_navigation.dart';
+import '../../dev/dev_prints.dart';
 
 class InappWebviewConfig {
 
@@ -36,7 +37,7 @@ class InappWebviewConfig {
   NavigationActionPolicy shouldOverrideUrlLoading (controller,action)  {
         var _uri = action.request.url;
         LinksNavigation _linksNavigation = LinksNavigation(uri: _uri!,controller: controller);
-
+        DevPrint.createLog("requwested uri $_uri");
         return  _linksNavigation.navDecision(_linksNavigation.linksHandler(uri: _uri));
       }
 

@@ -28,9 +28,8 @@ Uri appUri =  Uri(
 
 Uri devUri =  Uri(
   scheme: 'https',
-  host: 'chagiltest.netlify.app',
-
-  path: '',
+  host: 'www.w3schools.com',
+  path: '/html',
 );
 
 
