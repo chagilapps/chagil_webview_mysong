@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'webview_types/flutter_webview_plugin_widget.dart';
 import 'webview_types/inapp_webview/flutter_inappwebview_main_view.dart';
 
-const bool kDevView = true;
+const bool kDevView = false;
 
 //webview Package
 List<Widget> appWebView = [
