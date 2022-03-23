@@ -37,7 +37,7 @@ class InappWebviewConfig {
   NavigationActionPolicy shouldOverrideUrlLoading (controller,action)  {
         var _uri = action.request.url;
         LinksNavigation _linksNavigation = LinksNavigation(uri: _uri!,controller: controller);
-        DevPrint.createLog("requwested uri $_uri");
+        // DevPrint.createLog("requwested uri $_uri");
         return  _linksNavigation.navDecision(_linksNavigation.linksHandler(uri: _uri));
       }
 
