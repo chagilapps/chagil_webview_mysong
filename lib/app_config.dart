@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'webview_types/flutter_webview_plugin_widget.dart';
 import 'webview_types/inapp_webview/flutter_inappwebview_main_view.dart';
 
+const bool kDevView = true;
+
 //webview Package
 List<Widget> appWebView = [
  const FlutterInappWebviewMainView(),
@@ -21,6 +23,13 @@ Uri appUri =  Uri(
   scheme: 'https',
   host: 'www.mysong.co.il',
   // host:"chagiltest.netlify.app",
+  path: '',
+);
+
+Uri devUri =  Uri(
+  scheme: 'https',
+  host: 'chagiltest.netlify.app',
+
   path: '',
 );
 

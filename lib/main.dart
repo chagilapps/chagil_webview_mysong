@@ -11,6 +11,8 @@ import 'api/firebase_class.dart';
 import 'api/one_signal_class.dart';
 // import 'app_config.dart';
 // import 'application/audio_handler.dart';
+import 'app_config.dart';
+import 'dev/dev_home.dart';
 import 'home_page.dart';
 
 // late AudioHandler _audioHandler;
@@ -46,6 +48,9 @@ class MyApp extends StatelessWidget {
 print('hahahaha');
   // return MaterialApp(home: DownloaderView(platform: TargetPlatform.android,title: "Download Files",));
   // return const DevHome();
-  return const HomePage();
+return
+  kDevView?
+ const DevHome():
+   const HomePage();
   }
 }

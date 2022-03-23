@@ -19,8 +19,8 @@ class _FlutterInappWebviewMainViewState
   InAppWebViewController? _webViewController;
   InappWebviewConfig _config = InappWebviewConfig();
   int _tst = 0;
-  String url = appUri.host;
-  Uri _uri = appUri;
+  String url = kDevView? devUri.host: appUri.host;
+  Uri _uri = kDevView? devUri : appUri;
   double progress = 0;
 
   @override
