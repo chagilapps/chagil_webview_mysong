@@ -38,11 +38,11 @@ class _DevHomeState extends State<DevHome> {
           SafeArea(child:
           displayView[index],),
           
-          floatingActionButton: FloatingActionButton(
-            onPressed: (){
-              LinksNavigation.launchURL(Uri.parse("tel://57836389"));
-            },
-          ),
+          // floatingActionButton: FloatingActionButton(
+          //   onPressed: (){
+          //     LinksNavigation.launchURL(Uri.parse("tel://57836389"));
+          //   },
+          // ),
 
           bottomNavigationBar: BottomNavigationBar(
             onTap: (currentIndex){

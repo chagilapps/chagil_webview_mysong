@@ -37,7 +37,7 @@ class DevPrint extends StatelessWidget {
             }, child: Text("app launcher")),
             TextButton(onPressed: () async {
 
-            await launch("tel:57836389",forceSafariVC: false,universalLinksOnly:true,forceWebView: false,).then((value) =>  DevPrint.createLog("started ...")).whenComplete(() =>  DevPrint.createLog("compleated ")) .onError((error, stackTrace) =>  DevPrint.createLog("error... $error"));;
+            await launch("tel:57836389").then((value) =>  DevPrint.createLog("started ...")).whenComplete(() =>  DevPrint.createLog("compleated ")) .onError((error, stackTrace) =>  DevPrint.createLog("error... $error"));;
 
             }, child: Text("original launcher"))
           ],
