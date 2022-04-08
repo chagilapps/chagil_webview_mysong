@@ -36,6 +36,7 @@ class _InappwebviewPopViewState extends State<InappwebviewPopView> {
   InappWebviewConfig _config = InappWebviewConfig();
   bool isLoading = false;
   String url = "";
+  String source = ".mobile_app{display:none!important};";
 
   @override
   void initState() {
@@ -128,7 +129,7 @@ class _InappwebviewPopViewState extends State<InappwebviewPopView> {
                       // systemOverlayStyle: SystemUiOverlayStyle.dark,
                       // backwardsCompatibility: false,
                       actions: [
-                        // NativeSharing().shareButton(url:url),
+                        NativeSharing().shareButton(url:url),
                         TabCloseButton(),
 
                         // IconButton(
@@ -201,6 +202,8 @@ class _InappwebviewPopViewState extends State<InappwebviewPopView> {
                           setState(() {
                             progress = p / 100;
                           });
+
+                          injectCSS(controller,source);
                         },
                         shouldOverrideUrlLoading: (controller, action) async =>
                             _config.shouldOverrideUrlLoading(

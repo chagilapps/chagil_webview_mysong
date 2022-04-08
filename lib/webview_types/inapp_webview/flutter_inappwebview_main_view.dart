@@ -7,7 +7,9 @@ import '../../widget/progress_bar.dart';
 import 'inapp_webview_config.dart';
 
 class FlutterInappWebviewMainView extends StatefulWidget {
-  const FlutterInappWebviewMainView({Key? key}) : super(key: key);
+
+  Uri uri;
+  FlutterInappWebviewMainView(this.uri);
 
   @override
   _FlutterInappWebviewMainViewState createState() =>
@@ -19,8 +21,9 @@ class _FlutterInappWebviewMainViewState
   InAppWebViewController? _webViewController;
   InappWebviewConfig _config = InappWebviewConfig();
   int _tst = 0;
-  String url = kDevView? devUri.host: appUri.host;
-  Uri _uri = kDevView? devUri : appUri;
+  String source = "#mobile_menu>ul>li:nth-child(6)>a{display:none!important;}#mobile_menu>ul>li:nth-child(7)>a{display:none!important;}.mobile_app{display:none!important};";
+  // String url = kDevView? devUri.host: appUri.host;
+  // Uri _uri = kDevView? devUri : appUri;
   double progress = 0;
 
   @override
@@ -28,13 +31,13 @@ class _FlutterInappWebviewMainViewState
     return WillPopScope(
       onWillPop: () async {
         bool _canBack = false;
-         await _webViewController!.canGoBack().then((value) => _canBack =value);
+        await _webViewController!.canGoBack().then((value) => _canBack =value);
         if(_canBack){
           _webViewController!.goBack();
         }
-         print("on will pop");
+        print("on will pop");
         return false;
-        },
+      },
       child: Container(
         child: Column(children: <Widget>[
           WebviewProgressBar( progress: progress,),
@@ -44,7 +47,7 @@ class _FlutterInappWebviewMainViewState
             child: Container(
               child: InAppWebView(
                   initialUrlRequest: URLRequest(
-                    url: _uri,
+                    url: widget.uri,
                   ),
                   initialOptions: InAppWebViewGroupOptions(
                     android: _config.androidOptions,
@@ -59,14 +62,15 @@ class _FlutterInappWebviewMainViewState
                   onLoadStart: (controller, uri) async {
                     if (uri != null) {
                       setState(() {
-                        this._uri = uri;
+                        this.widget.uri = uri;
                       });
                     }
                   },
                   onLoadStop: (controller, uri) async {
                     if (uri != null) {
                       setState(() {
-                        this._uri = uri;
+                        this.widget.uri = uri;
+                        // controller.injectCSSCode(source: source);
                       });
                     }
                   },
@@ -74,6 +78,8 @@ class _FlutterInappWebviewMainViewState
                       (InAppWebViewController controller, int progress) {
                     setState(() {
                       this.progress = progress / 100;
+                      injectCSS(controller,source);
+
                     });
                   },
                   onDownloadStart: (controller, uri) {
@@ -82,24 +88,10 @@ class _FlutterInappWebviewMainViewState
                   },
                   onCreateWindow: (controller, action) {
 
-                      return _config.onCreateWindow(
-                          context, controller, action);
-
-
+                    return _config.onCreateWindow(
+                        context, controller, action);
                   }
-
-                  //     (controller, action) async {
-                  //   var _linksNavigation = LinksNavigation(
-                  //       uri: action.request.url!, controller: controller);
-                  //   print("action.request.url ${action.request.runtimeType}");
-                  //
-                  //   var windowId = print("onCreateWindow");
-                  //   print(action.windowId);
-                  //   _linksNavigation.onCreateWindow(context, controller, action);
-                  //
-                  //   return true;
-                  // },
-                  ),
+              ),
             ),
           ),
           // appButtonBar(_webViewController),
@@ -108,4 +100,5 @@ class _FlutterInappWebviewMainViewState
       ),
     );
   }
+
 }

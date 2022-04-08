@@ -32,6 +32,8 @@ dependencies:
   flutter_share: ^2.0.0
   flutter_native_splash: ^2.1.1
   font_awesome_flutter: ^9.2.0
+  flutter_svg: ^1.0.3
+  get: ^4.6.1
 #  al_downloader: ^1.1.6
 
 dev_dependencies:

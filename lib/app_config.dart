@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 import 'webview_types/flutter_webview_plugin_widget.dart';
 import 'webview_types/inapp_webview/flutter_inappwebview_main_view.dart';
@@ -7,11 +8,11 @@ import 'webview_types/inapp_webview/flutter_inappwebview_main_view.dart';
 const bool kDevView = false;
 
 //webview Package
-List<Widget> appWebView = [
- const FlutterInappWebviewMainView(),
-// FlutterWebviewPluginWidget(),
-// FlutterWebviewProWidget(),
-];
+// List<Widget> appWebView = [
+//  const FlutterInappWebviewMainView(),
+// // FlutterWebviewPluginWidget(),
+// // FlutterWebviewProWidget(),
+// ];
 
 
 
@@ -61,3 +62,9 @@ List<String> specificHostInBrowser = ["www.facebook.com","www.instegram.com"];
 
 const String oneSignalAndroid = "032d972e-3b84-42d0-9c42-9e6650829d45";
 const String oneSignalIOS = "032d972e-3b84-42d0-9c42-9e6650829d45";
+
+void injectCSS(InAppWebViewController controller, String source) {
+  controller.injectCSSCode(source: source);
+
+
+}

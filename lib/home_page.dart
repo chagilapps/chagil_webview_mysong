@@ -1,17 +1,28 @@
 import 'dart:io';
 import 'dart:isolate';
 import 'dart:ui';
+import 'package:audio_webview/webview_types/inapp_webview/Question.dart';
+import 'package:audio_webview/webview_types/inapp_webview/disk.dart';
+import 'package:audio_webview/webview_types/inapp_webview/flutter_inappwebview_main_view.dart';
+import 'package:audio_webview/webview_types/inapp_webview/home.dart';
+import 'package:audio_webview/webview_types/inapp_webview/inapp_webview_config.dart';
+import 'package:audio_webview/webview_types/inapp_webview/phone.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:audio_webview/widget/offline_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 // import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'app_config.dart';
+import 'application/links_navigation.dart';
 import 'webview_types/flutter_webview_plugin_widget.dart';
 
 class HomePage extends StatefulWidget {
@@ -25,6 +36,7 @@ class _MyAppState extends State<HomePage> {
   ReceivePort _port = ReceivePort();
   bool internetConnected = true;
   late var subscription;
+
 
   Future checkConnection () async  {
     var connectivityResult = await (Connectivity().checkConnectivity());
@@ -44,6 +56,36 @@ class _MyAppState extends State<HomePage> {
       });
     }
   }
+  InAppWebViewController? controller;
+  int _selectedIndex = 0;
+  static const List<String> _widgetOptions = <String>[
+    "https://www.mysong.co.il",
+    "https://www.mysong.co.il/taklitia",
+    "https://www.mysong.co.il/faq",
+    "https://www.mysong.co.il/contact"
+
+  ];
+
+
+
+  List<Widget> screen= <Widget>[
+
+    // Question(),
+
+    Home(),
+    Disk(),
+    Phone(),
+  ];
+
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+      screen[index];
+
+    });
+
+  }
 
   @override
   void initState() {
@@ -55,7 +97,9 @@ class _MyAppState extends State<HomePage> {
         String id = data[0];
         DownloadTaskStatus status = data[1];
         int progress = data[2];
-        setState(() {});
+        setState(() {
+          this._selectedIndex=_selectedIndex;
+        });
       });
 
       FlutterDownloader.registerCallback(downloadCallback);
@@ -88,14 +132,12 @@ class _MyAppState extends State<HomePage> {
     subscription.cancel();
     super.dispose();
   }
-
   static void downloadCallback(
       String id, DownloadTaskStatus status, int progress) {
     final SendPort? send =
-        IsolateNameServer.lookupPortByName('downloader_send_port');
+    IsolateNameServer.lookupPortByName('downloader_send_port');
     send!.send([id, status, progress]);
   }
-
   @override
   Widget build(BuildContext context) {
     if(Platform.isIOS){
@@ -107,27 +149,76 @@ class _MyAppState extends State<HomePage> {
           ));
     }
 
-    return MaterialApp(
-
+    return GetMaterialApp(
         debugShowCheckedModeBanner: false,
         home:  Scaffold(
             appBar:
             showAppBar
                 ? AppBar(
-                    centerTitle: true,
-                    title: Text(appBarTitle),
-                    backgroundColor: mainAppColor,
-                  )
-                : PreferredSize(
+              centerTitle: true,
+              title: Text(appBarTitle),
+              backgroundColor: mainAppColor,
+            )
+                : const PreferredSize(
+              child:SafeArea(child: SizedBox(),),
+              preferredSize: Size.zero,
+            ),
+            bottomNavigationBar: Directionality(
+              textDirection: TextDirection.rtl,
+              child: BottomNavigationBar(
+                  // backgroundColor: Colors.,
+                  items:  <BottomNavigationBarItem>[
 
-                    child:SafeArea(child: SizedBox(),),
-                    preferredSize: Size.zero,
+                    // BottomNavigationBarItem(
+                    //   icon: SvgPicture.asset('assets/icon/question.svg',color: _selectedIndex==1?Colors.red:Colors.white70,),
+                    //   label: 'שאלות ותשובות',
+                    //   backgroundColor: Colors.black87,
+                    // ),
+
+                    BottomNavigationBarItem(
+                      icon: SvgPicture.asset('assets/icon/home.svg',color: _selectedIndex==0?Colors.red:Colors.grey,),
+                      label: 'בית',
+                    ),
+                    BottomNavigationBarItem(
+                      icon: SvgPicture.asset('assets/icon/disk.svg',color: _selectedIndex==1?Colors.red:Colors.grey,),
+                      label: 'התקליטייה',
+                    ),
+                    BottomNavigationBarItem(
+
+                      icon: SvgPicture.asset('assets/icon/phone.svg',color: _selectedIndex==2?Colors.red:Colors.grey,),
+                      label: 'יצירת קשר',
+
+                    ),
+
+
+
+                  ],
+                  // type: BottomNavigationBarType.fixed,
+                  currentIndex: _selectedIndex,
+                  showUnselectedLabels: true,
+                  selectedItemColor: Colors.red,
+                  showSelectedLabels: true,
+                  unselectedItemColor: Colors.grey,
+                  selectedLabelStyle: const TextStyle(
+                      fontSize: 12
                   ),
+                  iconSize: 40,
+
+                  onTap: (index){
+                    setState(() {
+                      _onItemTapped(index);
+                      _selectedIndex=index;
+                      // screen[index];
+                    });
+                  },
+                  elevation: 5
+              ),
+            ),
             body:
-                ( !internetConnected)?
-                OfflineScreen()
-                    :
-            appWebView[0],
+            ( !internetConnected)?
+            OfflineScreen()
+                :
+            screen[_selectedIndex]
 
         ));
   }
