@@ -21,7 +21,7 @@ class NativeSharing {
     }
     return IconButton(
         onPressed:()=> share(title: title,url: url!),
-        icon: FaIcon(FontAwesomeIcons.solidShareSquare),
+        icon: FaIcon(FontAwesomeIcons.solidShareSquare,size: 17),
 
     );
   }
