@@ -38,18 +38,18 @@ class _MyAppState extends State<HomePage> {
   late var subscription;
 
 
-  Future checkConnection () async  {
+  Future checkConnection() async {
     var connectivityResult = await (Connectivity().checkConnectivity());
     setConnectivityState(connectivityResult);
   }
 
-  setConnectivityState (rlt){
-    if (rlt == ConnectivityResult.mobile  || rlt == ConnectivityResult.wifi ) {
+  setConnectivityState(rlt) {
+    if (rlt == ConnectivityResult.mobile || rlt == ConnectivityResult.wifi) {
       setState(() {
         internetConnected = true;
       });
       // I am connected to a mobile network.
-    } else{
+    } else {
       // I am connected to a wifi network.
       setState(() {
         internetConnected = false;
@@ -63,13 +63,9 @@ class _MyAppState extends State<HomePage> {
     "https://www.mysong.co.il/taklitia",
     "https://www.mysong.co.il/faq",
     "https://www.mysong.co.il/contact"
-
   ];
 
-
-
-  List<Widget> screen= <Widget>[
-
+  List<Widget> screen = <Widget>[
     // Question(),
 
     Home(),
@@ -77,20 +73,17 @@ class _MyAppState extends State<HomePage> {
     Phone(),
   ];
 
-
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
       screen[index];
-
     });
-
   }
 
   @override
   void initState() {
     FlutterNativeSplash.remove();
-    if(!Platform.isIOS){
+    if (!Platform.isIOS) {
       IsolateNameServer.registerPortWithName(
           _port.sendPort, 'downloader_send_port');
       _port.listen((dynamic data) {
@@ -98,26 +91,27 @@ class _MyAppState extends State<HomePage> {
         DownloadTaskStatus status = data[1];
         int progress = data[2];
         setState(() {
-          this._selectedIndex=_selectedIndex;
+          this._selectedIndex = _selectedIndex;
         });
       });
 
       FlutterDownloader.registerCallback(downloadCallback);
     }
-    if(!Platform.isIOS){
-      SystemChrome.setSystemUIOverlayStyle(
-          SystemUiOverlayStyle().copyWith(
-            statusBarColor: mainAppColor,
-            //shows white text on status bar IOS
-            statusBarBrightness: Brightness.light,
-            statusBarIconBrightness: Brightness.light,
-            // systemStatusBarContrastEnforced:  true,
-            systemNavigationBarColor: mainAppColor,
-            // systemNavigationBarColor: Colors.pinkAccent,
-          ));
+    if (!Platform.isIOS) {
+      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle().copyWith(
+        statusBarColor: mainAppColor,
+        //shows white text on status bar IOS
+        statusBarBrightness: Brightness.light,
+        statusBarIconBrightness: Brightness.light,
+        // systemStatusBarContrastEnforced:  true,
+        systemNavigationBarColor: mainAppColor,
+        // systemNavigationBarColor: Colors.pinkAccent,
+      ));
     }
 
-    subscription = Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
+    subscription = Connectivity()
+        .onConnectivityChanged
+        .listen((ConnectivityResult result) {
       // Got a new connectivity status!
       setConnectivityState(result);
     });
@@ -126,49 +120,50 @@ class _MyAppState extends State<HomePage> {
 
   @override
   void dispose() {
-    if(!Platform.isIOS) {
+    if (!Platform.isIOS) {
       IsolateNameServer.removePortNameMapping('downloader_send_port');
     }
     subscription.cancel();
     super.dispose();
   }
+
   static void downloadCallback(
       String id, DownloadTaskStatus status, int progress) {
     final SendPort? send =
-    IsolateNameServer.lookupPortByName('downloader_send_port');
+        IsolateNameServer.lookupPortByName('downloader_send_port');
     send!.send([id, status, progress]);
   }
+
   @override
   Widget build(BuildContext context) {
-    if(Platform.isIOS){
-      SystemChrome.setSystemUIOverlayStyle(
-          SystemUiOverlayStyle().copyWith(
-            statusBarColor: mainAppColor,
-            //shows white text on status bar IOS
-            statusBarBrightness: Brightness.light,
-          ));
+    if (Platform.isIOS) {
+      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle().copyWith(
+        statusBarColor: mainAppColor,
+        //shows white text on status bar IOS
+        statusBarBrightness: Brightness.light,
+      ));
     }
 
     return GetMaterialApp(
         debugShowCheckedModeBanner: false,
-        home:  Scaffold(
-            appBar:
-            showAppBar
+        home: Scaffold(
+            appBar: showAppBar
                 ? AppBar(
-              centerTitle: true,
-              title: Text(appBarTitle),
-              backgroundColor: mainAppColor,
-            )
+                    centerTitle: true,
+                    title: Text(appBarTitle),
+                    backgroundColor: mainAppColor,
+                  )
                 : const PreferredSize(
-              child:SafeArea(child: SizedBox(),),
-              preferredSize: Size.zero,
-            ),
+                    child: SafeArea(
+                      child: SizedBox(),
+                    ),
+                    preferredSize: Size.zero,
+                  ),
             bottomNavigationBar: Directionality(
               textDirection: TextDirection.rtl,
               child: BottomNavigationBar(
                   // backgroundColor: Colors.,
-                  items:  <BottomNavigationBarItem>[
-
+                  items: <BottomNavigationBarItem>[
                     // BottomNavigationBarItem(
                     //   icon: SvgPicture.asset('assets/icon/question.svg',color: _selectedIndex==1?Colors.red:Colors.white70,),
                     //   label: 'שאלות ותשובות',
@@ -176,24 +171,30 @@ class _MyAppState extends State<HomePage> {
                     // ),
 
                     BottomNavigationBarItem(
-                      icon: SvgPicture.asset('assets/icon/home.svg',color: _selectedIndex==0?Colors.red:Colors.grey,height: 30,),
+                      icon: SvgPicture.asset(
+                        'assets/icon/home.svg',
+                        color: _selectedIndex == 0 ? Colors.red : Colors.grey,
+                        height: 30,
+                      ),
                       // icon: Icon(Icons.home_outlined,color: _selectedIndex==0?Colors.red:Colors.grey,size: 30,),
                       label: 'בית',
                     ),
                     BottomNavigationBarItem(
                       // icon: Icon(Icons.music_video_outlined,color: _selectedIndex==0?Colors.red:Colors.grey,size: 30,),
-                      icon: SvgPicture.asset('assets/icon/disk.svg',color: _selectedIndex==1?Colors.red:Colors.grey,height: 30),
+                      icon: SvgPicture.asset('assets/icon/disk.svg',
+                          color: _selectedIndex == 1 ? Colors.red : Colors.grey,
+                          height: 30),
                       label: 'התקליטייה',
                     ),
                     BottomNavigationBarItem(
-                      icon: Icon(Icons.mail_outline,color: _selectedIndex==2?Colors.red:Colors.grey,size: 30,),
+                      icon: Icon(
+                        Icons.mail_outline,
+                        color: _selectedIndex == 2 ? Colors.red : Colors.grey,
+                        size: 30,
+                      ),
                       // icon: SvgPicture.asset('assets/icon/phone.svg',color: _selectedIndex==2?Colors.red:Colors.grey,),
                       label: 'יצירת קשר',
-
                     ),
-
-
-
                   ],
                   // type: BottomNavigationBarType.fixed,
                   currentIndex: _selectedIndex,
@@ -201,27 +202,19 @@ class _MyAppState extends State<HomePage> {
                   selectedItemColor: Colors.red,
                   showSelectedLabels: true,
                   unselectedItemColor: Colors.grey,
-                  selectedLabelStyle: const TextStyle(
-                      fontSize: 12
-                  ),
+                  selectedLabelStyle: const TextStyle(fontSize: 12),
                   iconSize: 40,
-
-                  onTap: (index){
+                  onTap: (index) {
                     setState(() {
                       _onItemTapped(index);
-                      _selectedIndex=index;
+                      _selectedIndex = index;
                       // screen[index];
                     });
                   },
-                  elevation: 5
-              ),
+                  elevation: 5),
             ),
-            body:
-            ( !internetConnected)?
-            OfflineScreen()
-                :
-            screen[_selectedIndex]
-
-        ));
+            body: (!internetConnected)
+                ? OfflineScreen()
+                : screen[_selectedIndex]));
   }
 }

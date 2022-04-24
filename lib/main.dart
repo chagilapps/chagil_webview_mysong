@@ -12,6 +12,7 @@ import 'api/one_signal_class.dart';
 // import 'app_config.dart';
 // import 'application/audio_handler.dart';
 import 'app_config.dart';
+import 'dev/demo_for_web.dart';
 import 'dev/dev_home.dart';
 import 'home_page.dart';
 
@@ -30,10 +31,10 @@ Future<void> main() async {
   // }
 
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-  FirebaseClass().initializeFlutterFire();
-  OneSignalClass().initializeOneSignal();
-  await FlutterDownloader.initialize(debug: debug);
-  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  // FirebaseClass().initializeFlutterFire();
+  // OneSignalClass().initializeOneSignal();
+  // await FlutterDownloader.initialize(debug: debug);
+  // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   runApp(const MyApp());
 
