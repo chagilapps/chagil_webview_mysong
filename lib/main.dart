@@ -31,10 +31,10 @@ Future<void> main() async {
   // }
 
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-  // FirebaseClass().initializeFlutterFire();
-  // OneSignalClass().initializeOneSignal();
-  // await FlutterDownloader.initialize(debug: debug);
-  // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  FirebaseClass().initializeFlutterFire();
+  OneSignalClass().initializeOneSignal();
+  await FlutterDownloader.initialize(debug: debug);
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   runApp(const MyApp());
 
