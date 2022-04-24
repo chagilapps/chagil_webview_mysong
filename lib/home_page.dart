@@ -171,19 +171,21 @@ class _MyAppState extends State<HomePage> {
                     // ),
 
                     BottomNavigationBarItem(
-                      icon: SvgPicture.asset(
-                        'assets/icon/home.svg',
-                        color: _selectedIndex == 0 ? Colors.red : Colors.grey,
-                        height: 30,
-                      ),
-                      // icon: Icon(Icons.home_outlined,color: _selectedIndex==0?Colors.red:Colors.grey,size: 30,),
-                      label: 'בית',
+                       icon: Icon(
+                Icons.home_outlined,
+                color: _selectedIndex == 0 ? Colors.red : Colors.grey,
+                size: 30,
+              ),
+              // icon: SvgPicture.asset('assets/icon/phone.svg',color: _selectedIndex==2?Colors.red:Colors.grey,),
+              label: 'בית',
                     ),
                     BottomNavigationBarItem(
                       // icon: Icon(Icons.music_video_outlined,color: _selectedIndex==0?Colors.red:Colors.grey,size: 30,),
-                      icon: SvgPicture.asset('assets/icon/disk.svg',
-                          color: _selectedIndex == 1 ? Colors.red : Colors.grey,
-                          height: 30),
+                      icon:Icon(
+                        Icons.music_note_outlined,
+                        color: _selectedIndex == 1 ? Colors.red : Colors.grey,
+                        size: 30,
+                      ),
                       label: 'התקליטייה',
                     ),
                     BottomNavigationBarItem(

@@ -21,12 +21,7 @@ class _FlutterInappWebviewMainViewState
   InAppWebViewController? _webViewController;
   InappWebviewConfig _config = InappWebviewConfig();
   int _tst = 0;
-  String source = """"
-  #mobile_menu>ul>li:nth-child(6)>a{display:none!important;}#mobile_menu>ul>li:nth-child(7)>a{display:none!important;}
-  .mobile_app{display:none!important}
-  #contact_form > div.inner > div.col-md-5.col-xs-12 > ul > li:nth-child(1) > a:nth-child(3){display:none !important;}
-  #contact_form > div.inner > div.col-md-5.col-xs-12 > ul > li:nth-child(1) > a:nth-child(4){display:none !important;}
-  """;
+  String source = "#mobile_menu>ul>li:nth-child(7)>a{display:none!important;}#mobile_menu>ul>li:nth-child(6)>a{display:none!important;}.mobile_app{display:none!important}#contact_form > div.inner > div.col-md-5.col-xs-12 > ul > li:nth-child(1) > a:nth-child(3){display:none !important;}#contact_form > div.inner > div.col-md-5.col-xs-12 > ul > li:nth-child(1) > a:nth-child(4){display:none !important;}";
   // String url = kDevView? devUri.host: appUri.host;
   // Uri _uri = kDevView? devUri : appUri;
   double progress = 0;
