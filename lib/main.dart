@@ -12,12 +12,11 @@ import 'api/one_signal_class.dart';
 // import 'app_config.dart';
 // import 'application/audio_handler.dart';
 import 'app_config.dart';
-import 'dev/demo_for_web.dart';
 import 'dev/dev_home.dart';
 import 'home_page.dart';
 
 // late AudioHandler _audioHandler;
-const debug = true;
+const debug = false;
 
 Future<void> main() async {
   // if(audioBackground){

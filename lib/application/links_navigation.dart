@@ -1,4 +1,4 @@
-import 'dart:io';
+
 
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
@@ -34,6 +34,7 @@ class LinksNavigation {
   static launchURL(Uri uri) async {
     String _url;
     _url = uri.toString().trim();
+    // _url =  _url.replaceAll("/", "");
 // _url = "error://www.eeroor.l";
      try {await canLaunch(_url);
         DevPrint.createLog("canLaunch $_url");
@@ -42,16 +43,18 @@ class LinksNavigation {
           try {
             await launch(
               _url,
+
             ).then((value) =>  DevPrint.createLog("started ...")).whenComplete(() =>  DevPrint.createLog("compleated ")) .onError((error, stackTrace) =>  DevPrint.createLog("error... $error"));;
           } catch (e) {
             DevPrint.createLog("url luncher error $e");
           }
         }else{
           try {
+
             await launch(
               _url,
               forceSafariVC: false,
-                universalLinksOnly:true,
+                // universalLinksOnly:true,
               forceWebView: false,
             ).then((value) =>  DevPrint.createLog("started ...")).whenComplete(() =>  DevPrint.createLog("compleated ")) .onError((error, stackTrace) =>  DevPrint.createLog("error... $error"));;
           } catch (e) {
