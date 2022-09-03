@@ -61,7 +61,7 @@ List<String> specificHostInBrowser = ["www.facebook.com","www.instegram.com"];
 
 
 const String oneSignalAndroid = "032d972e-3b84-42d0-9c42-9e6650829d45";
-const String oneSignalIOS = "032d972e-3b84-42d0-9c42-9e6650829d45";
+const String oneSignalIOS = "ae236871-9e59-445b-aaa9-089edef4bb27";
 
 void injectCSS(InAppWebViewController controller, String source) {
   controller.injectCSSCode(source: source);
